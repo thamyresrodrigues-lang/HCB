@@ -1,6 +1,7 @@
+
 import React from 'react';
 import { SummaryResponse } from '../types';
-import { Sparkles, AlertTriangle, CheckSquare, Target, Activity } from 'lucide-react';
+import { Sparkles, AlertTriangle, CheckSquare, Target, Activity, Zap } from 'lucide-react';
 
 interface Props {
   data: SummaryResponse | null;
@@ -10,12 +11,15 @@ interface Props {
 export const AiSummary: React.FC<Props> = ({ data, loading }) => {
   if (loading) {
     return (
-      <div className="bg-white p-6 rounded-xl border border-gray-100 shadow-sm animate-pulse space-y-4">
-        <div className="h-6 w-48 bg-gray-200 rounded"></div>
+      <div className="glass-panel p-8 rounded-3xl border border-neon/10 shadow-2xl animate-pulse space-y-6">
+        <div className="flex items-center gap-3">
+           <div className="w-10 h-10 bg-neon/10 rounded-full"></div>
+           <div className="h-6 w-48 bg-slate-800 rounded-lg"></div>
+        </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div className="h-24 bg-gray-100 rounded"></div>
-          <div className="h-24 bg-gray-100 rounded"></div>
-          <div className="h-24 bg-gray-100 rounded"></div>
+          <div className="h-32 bg-slate-800/50 rounded-2xl"></div>
+          <div className="h-32 bg-slate-800/50 rounded-2xl"></div>
+          <div className="h-32 bg-slate-800/50 rounded-2xl"></div>
         </div>
       </div>
     );
@@ -24,29 +28,35 @@ export const AiSummary: React.FC<Props> = ({ data, loading }) => {
   if (!data) return null;
 
   return (
-    <div className="bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden">
+    <div className="glass-panel rounded-3xl border border-white/5 shadow-2xl overflow-hidden relative group">
+      {/* Glow Effect */}
+      <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-neon to-transparent opacity-50"></div>
+      
       {/* Header */}
-      <div className="bg-gradient-to-r from-brand-600 to-brand-800 px-6 py-4 flex items-center justify-between">
-        <div className="flex items-center text-white">
-          <Sparkles className="w-5 h-5 mr-2" />
-          <h3 className="font-bold text-lg">Análise Inteligente</h3>
+      <div className="bg-dark-surface/50 px-8 py-5 flex items-center justify-between border-b border-white/5">
+        <div className="flex items-center gap-3">
+          <div className="p-2 bg-neon/10 rounded-lg">
+            <Sparkles className="w-5 h-5 text-neon" />
+          </div>
+          <h3 className="font-black text-lg text-white tracking-tight uppercase">Insights Estratégicos <span className="text-neon/50 ml-1 font-light italic text-sm">by Gemini</span></h3>
         </div>
-        <span className="text-brand-100 text-xs font-medium uppercase tracking-wider bg-brand-900/30 px-2 py-1 rounded">
-          Gerado por IA
-        </span>
+        <div className="flex items-center gap-2 px-3 py-1 bg-neon/5 border border-neon/20 rounded-full">
+           <Zap className="w-3 h-3 text-neon" />
+           <span className="text-neon text-[10px] font-black uppercase tracking-widest">Análise Ativa</span>
+        </div>
       </div>
 
-      <div className="p-6 grid grid-cols-1 md:grid-cols-12 gap-8">
+      <div className="p-8 grid grid-cols-1 md:grid-cols-12 gap-8 relative z-10">
         
         {/* Executive Summary (Main Column) */}
-        <div className="md:col-span-12 lg:col-span-5 space-y-4">
-          <h4 className="text-sm font-bold text-gray-900 uppercase tracking-wide flex items-center">
-            <Activity className="w-4 h-4 mr-2 text-brand-600" />
-            Resumo Executivo
+        <div className="md:col-span-12 lg:col-span-5 space-y-5">
+          <h4 className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] flex items-center">
+            <Activity className="w-4 h-4 mr-2 text-neon" />
+            Performance Geral
           </h4>
-          <ul className="space-y-3">
+          <ul className="space-y-4">
             {data.executive_summary.map((item, i) => (
-              <li key={i} className="text-gray-700 text-sm leading-relaxed border-l-2 border-brand-200 pl-3">
+              <li key={i} className="text-slate-200 text-sm leading-relaxed border-l-2 border-neon/30 pl-4 py-1 hover:border-neon transition-colors">
                 {item}
               </li>
             ))}
@@ -54,36 +64,40 @@ export const AiSummary: React.FC<Props> = ({ data, loading }) => {
         </div>
 
         {/* Action Plan */}
-        <div className="md:col-span-6 lg:col-span-4 space-y-4">
-          <h4 className="text-sm font-bold text-gray-900 uppercase tracking-wide flex items-center">
-            <Target className="w-4 h-4 mr-2 text-green-600" />
-            O que fazer agora (Prioridade)
+        <div className="md:col-span-6 lg:col-span-4 space-y-5">
+          <h4 className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] flex items-center">
+            <Target className="w-4 h-4 mr-2 text-[#22d3ee]" />
+            Plano de Ataque
           </h4>
-          <ul className="space-y-2">
+          <ul className="space-y-3">
             {data.action_plan.map((item, i) => (
-              <li key={i} className="flex items-start bg-green-50 p-3 rounded-lg border border-green-100">
-                <CheckSquare className="w-4 h-4 text-green-600 mr-2 mt-0.5 shrink-0" />
-                <span className="text-sm text-gray-800 font-medium">{item}</span>
+              <li key={i} className="flex items-start bg-white/5 p-4 rounded-2xl border border-white/5 group-hover:border-[#22d3ee]/20 transition-all">
+                <CheckSquare className="w-4 h-4 text-[#22d3ee] mr-3 mt-0.5 shrink-0" />
+                <span className="text-xs text-slate-200 font-semibold leading-snug">{item}</span>
               </li>
             ))}
           </ul>
         </div>
 
         {/* Risks/Alerts */}
-        <div className="md:col-span-6 lg:col-span-3 space-y-4">
-          <h4 className="text-sm font-bold text-gray-900 uppercase tracking-wide flex items-center">
-            <AlertTriangle className="w-4 h-4 mr-2 text-orange-500" />
+        <div className="md:col-span-6 lg:col-span-3 space-y-5">
+          <h4 className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] flex items-center">
+            <AlertTriangle className="w-4 h-4 mr-2 text-[#fb7185]" />
             Riscos & Alertas
           </h4>
-          <div className="space-y-2">
+          <div className="space-y-3">
             {data.risks.length > 0 ? (
               data.risks.map((item, i) => (
-                <div key={i} className="bg-orange-50 p-3 rounded-lg border border-orange-100 text-sm text-orange-800">
+                <div key={i} className={`p-4 rounded-2xl border text-xs font-medium leading-relaxed ${
+                  item.toLowerCase().includes('estáveis') 
+                    ? 'bg-green-500/5 border-green-500/20 text-green-400' 
+                    : 'bg-[#fb7185]/5 border-[#fb7185]/20 text-[#fb7185]'
+                }`}>
                   {item}
                 </div>
               ))
             ) : (
-              <div className="bg-gray-50 p-3 rounded-lg border border-gray-100 text-sm text-gray-500 italic">
+              <div className="bg-white/5 p-4 rounded-2xl border border-white/5 text-xs text-slate-500 italic">
                 Nenhum risco crítico detectado no momento.
               </div>
             )}
@@ -91,6 +105,9 @@ export const AiSummary: React.FC<Props> = ({ data, loading }) => {
         </div>
 
       </div>
+      
+      {/* Background decoration */}
+      <div className="absolute -bottom-12 -right-12 w-48 h-48 bg-neon/5 blur-[60px] rounded-full pointer-events-none"></div>
     </div>
   );
 };
