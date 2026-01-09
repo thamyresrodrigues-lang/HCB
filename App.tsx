@@ -1,6 +1,7 @@
 
 import React, { useState, useEffect, useMemo, useCallback } from 'react';
 import { Loader2, ArrowRightLeft, CalendarDays, RefreshCw, LayoutDashboard, Search, Video, Megaphone, Sparkles, ChevronRight, Tag, Users, Layers, TrendingUp } from 'lucide-react';
+import { SpeedInsights } from '@vercel/speed-insights/react';
 import { COMPARISON_OPTIONS, DASHBOARD_TABS } from './constants';
 import { fetchGoogleSheetData, aggregateData, filterByDateRange } from './services/dataService';
 import { generateAiSummary } from './services/geminiService';
@@ -347,6 +348,7 @@ const App: React.FC = () => {
 
         <Glossary />
       </div>
+      <SpeedInsights />
     </div>
   );
 };
